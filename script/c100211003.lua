@@ -23,16 +23,18 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
+function s.rfilter(c)
+	return c:IsType(TYPE_EFFECT) and Duel.GetMZoneCount(tp,c)>0
+end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return Duel.CheckReleaseGroup(tp,Card.IsType,1,c,1,TYPE_EFFECT) end
+	if chk==0 then return Duel.CheckReleaseGroup(tp,s.rfilter,1,c,1) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
-	local g=Duel.SelectReleaseGroup(tp,Card.IsType,1,1,c,TYPE_EFFECT)
+	local g=Duel.SelectReleaseGroup(tp,s.rfilter,1,1,c)
 	Duel.Release(g,REASON_COST)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,id+100,0,TYPES_TOKEN_MONSTER,0,0,1,RACE_AQUA,ATTRIBUTE_WATER) end
+	if chk==0 then return Duel.IsPlayerCanSpecialSummonMonster(tp,id+100,0,TYPES_TOKEN_MONSTER,0,0,1,RACE_AQUA,ATTRIBUTE_WATER) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
