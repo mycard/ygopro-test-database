@@ -49,7 +49,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Draw(tp,h,REASON_EFFECT)
 end
 function s.cfilter(c)
-	return c:IsFacedown() and not c:IsRace(RACE_FIEND)
+	return c:IsFacedown() or not c:IsRace(RACE_FIEND)
 end
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetMZoneCount(tp)==0 or not Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil) and Duel.GetTurnCount()~=e:GetHandler():GetTurnID() or e:GetHandler():IsReason(REASON_RETURN)
