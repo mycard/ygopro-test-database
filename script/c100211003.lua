@@ -25,7 +25,7 @@ function s.initial_effect(c)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return Duel.CheckReleaseGroup(tp,Card.IsAttackAbove,1,c,1) end
+	if chk==0 then return Duel.CheckReleaseGroup(tp,Card.IsType,1,c,1,TYPE_EFFECT) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
 	local g=Duel.SelectReleaseGroup(tp,Card.IsType,1,1,c,TYPE_EFFECT)
 	Duel.Release(g,REASON_COST)
